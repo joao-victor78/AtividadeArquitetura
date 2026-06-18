@@ -21,6 +21,16 @@ java -cp out biblioteca.apresentacao.Main
 
 Também é possível executar a classe `Main` na raiz de `src`, que apenas delega para `biblioteca.apresentacao.Main`.
 
+## Verificação Manual
+
+Além da demonstração principal, o projeto possui uma classe simples de verificação sem frameworks externos:
+
+```bash
+java -cp out biblioteca.apresentacao.VerificacaoManual
+```
+
+Ela valida decremento de estoque, empréstimo ativo, devolução, recomposição de estoque e bloqueio de usuário suspenso.
+
 ## Estrutura
 
 - `biblioteca.dominio`: entidades, enums, portas, eventos e serviço principal de empréstimo.
@@ -48,3 +58,11 @@ Também é possível executar a classe `Main` na raiz de `src`, que apenas deleg
 - Para manter o domínio isolado, todos os detalhes de persistência foram empurrados para adaptadores que implementam portas.
 - Para demonstrar comunicação por eventos sem framework externo, foi criado um `EventBus` genérico com `Consumer<T>` e `ExecutorService`.
 - Para o CSV, a serialização trata campos com aspas usando escape padrão de CSV.
+
+## Checklist de Entrega
+
+- Compilar o projeto com Java 17+.
+- Executar `biblioteca.apresentacao.Main`.
+- Executar `biblioteca.apresentacao.VerificacaoManual`.
+- Conferir que `livros.csv` e `biblioteca.log` são gerados em tempo de execução.
+- Publicar o repositório com histórico de commits organizado.
