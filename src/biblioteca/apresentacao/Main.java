@@ -20,10 +20,15 @@ import biblioteca.infraestrutura.adaptador.ServicoDeLog;
 import biblioteca.infraestrutura.adaptador.ServicoDeNotificacao;
 import biblioteca.infraestrutura.adaptador.UsuarioRepositorioMemoria;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 public class Main {
     public static void main(String[] args) {
         System.out.println("=== Sistema de Gerenciamento de Biblioteca ===");
         executarFluxo("Adaptador em memoria", new LivroRepositorioMemoria());
+        limparArquivoGerado("livros.csv");
         executarFluxo("Adaptador CSV para livros", new LivroRepositorioCsv("livros.csv"));
     }
 
@@ -73,5 +78,13 @@ public class Main {
         eventosEmprestimo.aguardarProcessamento();
         eventosDevolucao.aguardarProcessamento();
         System.out.println("Eventos processados. Verifique biblioteca.log para os registros com timestamp.");
+    }
+
+    private static void limparArquivoGerado(String caminho) {
+        try {
+            Files.deleteIfExists(Path.of(caminho));
+        } catch (IOException e) {
+            throw new IllegalStateException("Nao foi possivel limpar arquivo gerado: " + caminho, e);
+        }
     }
 }
